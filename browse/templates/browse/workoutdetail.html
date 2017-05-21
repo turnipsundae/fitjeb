@@ -1,0 +1,27 @@
+<div>{{ workout.title }}</div>
+<div>{{ workout.description }}</div>
+<div><a href="{{ workout.link }}">{{ workout.link }}</a></div>
+
+<div class="wod-result-stats">
+    <table class="table table-hover">
+        <caption>Benchmark based on {{ workout.uom }}</caption> 
+        <thead> 
+            <tr> 
+                <th></th> 
+                <th>Min</th> 
+                <th>Avg</th> 
+                <th>Max</th>
+            </tr> 
+        </thead> 
+        <tbody>
+            {% for gender in benchmark_list %}
+            <tr>
+                <th scope="row">Rx'd {{ gender.gender }}</th> 
+                <td>{{ gender.min_score }}</td> 
+                <td>{{ gender.avg_score }}</td> 
+                <td>{{ gender.max_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

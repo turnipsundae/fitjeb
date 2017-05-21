@@ -17,3 +17,28 @@ class Workout(models.Model):
 
     def __repr__(self):
         return "<Workout(title='%s', description='%s')>" % (self.title, self.description)
+
+class Benchmark(models.Model):
+    """
+    Benchmark represents the min, max and average Rx'd results for
+    a Workout.
+    """
+    __tablename__ = 'benchmark'
+
+    workout = models.ForeignKey(Workout)
+    gender = models.CharField(max_length=255)
+    min_age = models.IntegerField(null=True)
+    avg_age = models.IntegerField(null=True)
+    max_age = models.IntegerField(null=True)
+    min_score = models.DecimalField(max_digits=10, decimal_places=2)
+    avg_score = models.DecimalField(max_digits=10, decimal_places=2)
+    max_score = models.DecimalField(max_digits=10, decimal_places=2)
+    total_rxd = models.IntegerField(default=0)
+    total_attempts = models.IntegerField(default=0)
+    uom = models.CharField(max_length=255)
+
+    def __str__(self):
+        return "%s, %s %s" % (self.gender, self.avg_score, self.uom)
+        
+    def __repr__(self):
+        return "<Benchmark('%s, %s %s')>" % (self.gender, self.avg_score, self.uom)

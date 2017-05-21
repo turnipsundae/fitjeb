@@ -19,7 +19,7 @@ from django.contrib import admin
 import browse.views
 
 urlpatterns = [
-    url(r'^$', browse.views.index, name='index'),
+    url(r'^$', browse.views.IndexView.as_view(), name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^wods/', include('browse.urls')),
 ]
