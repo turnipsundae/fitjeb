@@ -6,3 +6,6 @@
 
 # Local dev files
 *.sqlite3
+
+# Python
+*.pyc
