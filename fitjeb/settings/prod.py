@@ -27,3 +27,5 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+
+STATIC_ROOT = 'static'
