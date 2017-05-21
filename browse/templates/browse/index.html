@@ -1,0 +1,9 @@
+<div>Workouts</div>
+
+<ul>
+{% for workout in workout_list %}
+    <li><a href="/wods/{{ workout.id }}/">{{ workout.title }}</a></li>
+{% empty %}
+    <p>No workouts are available.</p>
+{% endfor %}
+</ul>
