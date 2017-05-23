@@ -29,3 +29,18 @@ if 'RDS_HOSTNAME' in os.environ:
     }
 
 STATIC_ROOT = 'static'
+
+# Celery settings with Amazon SQS
+# http://docs.celeryproject.org/en/latest/getting-started/brokers/sqs.html
+# Broker url format should be 
+# sqs://aws_access_key_id:aws_secret_access_key@
+# make sure to add @ at end
+import urllib
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+BROKER_URL = 'sqs://{0}:{1}@'.format(
+    urllib.parse.quote(AWS_ACCESS_KEY_ID, safe=''),
+    urllib.parse.quote(AWS_SECRET_ACCESS_KEY, safe='')
+)
