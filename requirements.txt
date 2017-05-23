@@ -1,2 +1,5 @@
 Django==1.11.1
 psycopg2==2.7.1
+celery==4.0.2
+boto==2.46.1
+pycurl==7.43.0
