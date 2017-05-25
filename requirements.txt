@@ -2,3 +2,4 @@ Django==1.11.1
 psycopg2==2.7.1
 celery==4.0.2
 boto==2.46.1
+selenium==3.3.1

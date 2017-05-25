@@ -13,3 +13,6 @@
 # Celery
 celerybeat-schedule
 celerybeat.pid
+
+# geckodriver
+geckodriver.log
