@@ -42,3 +42,21 @@ class Benchmark(models.Model):
         
     def __repr__(self):
         return "<Benchmark('%s, %s %s')>" % (self.gender, self.avg_score, self.uom)
+
+class Crawled(models.Model):
+    """
+    Workouts that have been crawled, success or failure.
+    """
+    __tablename__ = 'crawled'
+
+    link = models.URLField(max_length=255, help_text="The URL to the WOD page")
+    date = models.DateField()
+    success = models.CharField(max_length=255)
+    crawled_on = models.DateTimeField("Crawled on", auto_now_add=True)
+    updated_on = models.DateTimeField("Updated on", auto_now=True)
+    
+    def __str__(self):
+        return "%s %s" % (self.date, self.success)
+        
+    def __repr__(self):
+        return "<Crawled('%s %s')>" % (self.date, self.success)

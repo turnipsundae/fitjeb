@@ -9,3 +9,7 @@
 
 # Python
 *.pyc
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
