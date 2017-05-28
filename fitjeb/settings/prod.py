@@ -37,10 +37,8 @@ STATIC_ROOT = 'static'
 # make sure to add @ at end
 import urllib
 
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-
-BROKER_URL = 'sqs://{0}:{1}@'.format(
-    urllib.parse.quote(AWS_ACCESS_KEY_ID, safe=''),
-    urllib.parse.quote(AWS_SECRET_ACCESS_KEY, safe='')
-)
+if 'AWS_ACCESS_KEY_ID' in os.environ and 'AWS_SECRET_ACCESS_KEY' in os.environ:
+    BROKER_URL = 'sqs://{0}:{1}@'.format(
+        os.environ['AWS_ACCESS_KEY_ID'],
+        os.environ['AWS_SECRET_ACCESS_KEY']
+    )
