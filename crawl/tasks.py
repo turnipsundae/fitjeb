@@ -23,7 +23,7 @@ def task_save_latest_wod():
 )
 def task_save_specific_wod():
     """
-    Saves WOD from Crossfit.com beginning from start date,
+    Saves WOD from Crossfit.com beginning from stt art date,
     and skipping past any previously crawled dates.
     """
     # save_old_wod(CRAWLER_START_DATE)
