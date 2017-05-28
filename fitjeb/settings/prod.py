@@ -30,28 +30,5 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-else:
-    with open('logfile', 'w') as f:
-        f.write('RDS not in environment variables')
 
 STATIC_ROOT = 'static'
-
-# Celery settings with Amazon SQS
-# http://docs.celeryproject.org/en/latest/getting-started/brokers/sqs.html
-# Broker url format should be 
-# sqs://aws_access_key_id:aws_secret_access_key@
-# make sure to add @ at end
-import urllib
-
-if 'AWS_ACCESS_KEY_ID' in os.environ and 'AWS_SECRET_ACCESS_KEY' in os.environ:
-    BROKER_URL = 'sqs://{0}:{1}@'.format(
-        urllib.parse.quote(os.environ['AWS_ACCESS_KEY_ID'], safe=''),
-        urllib.parse.quote(os.environ['AWS_SECRET_ACCESS_KEY'], safe='')
-    )
-    BROKER_TRANSPORT_OPTIONS = {'region': 'us-west-2'}
-
-    with open('logfile', 'w') as f:
-        f.write('Success')
-else:
-    with open('logfile', 'w') as f:
-        f.write('AWS access keys not in environment variables')
