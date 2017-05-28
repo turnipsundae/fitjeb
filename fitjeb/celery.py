@@ -5,14 +5,20 @@ from celery import Celery
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fitjeb.settings.base')
 
-app = Celery('fitjeb')
+import urllib
 
-# Using a string here means the worker don't have to serialize
-# the configuration object to child processes.
-# - namespace='CELERY' means all celery-related configuration keys
-#   should have a `CELERY_` prefix.
-# app.config_from_object('django.conf:settings', namespace='CELERY')
-app.config_from_object('fitjeb.settings.prod', namespace='CELERY')
+if 'AWS_ACCESS_KEY_ID' in os.environ and 'AWS_SECRET_ACCESS_KEY' in os.environ:
+
+    app = Celery('fitjeb', broker='sqs://{0}:{1}@'.format(
+        urllib.parse.quote(os.environ['AWS_ACCESS_KEY_ID'], safe=''),
+        urllib.parse.quote(os.environ['AWS_SECRET_ACCESS_KEY'], safe='')
+    ))
+    with open('logfile', 'w') as f:
+        f.write('Success')
+else:
+    app = Celery('fitjeb')
+    with open('logfile', 'w') as f:
+        f.write('AWS access keys not in environment variables')
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
