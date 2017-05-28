@@ -11,8 +11,8 @@
 *.pyc
 
 # Celery
-celerybeat-schedule
-celerybeat.pid
+# celerybeat-schedule
+# celerybeat.pid
 
 # geckodriver
 geckodriver.log
