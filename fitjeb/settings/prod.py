@@ -4,6 +4,9 @@ Production settings.
 
 from fitjeb.settings.base import *
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Turn off debug during production
 DEBUG = False
@@ -27,6 +30,8 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+else:
+    logger.error('RDS not in environment variables')
 
 STATIC_ROOT = 'static'
 
@@ -42,3 +47,5 @@ if 'AWS_ACCESS_KEY_ID' in os.environ and 'AWS_SECRET_ACCESS_KEY' in os.environ:
         urllib.parse.quote(os.environ['AWS_ACCESS_KEY_ID'], safe=''),
         urllib.parse.quote(os.environ['AWS_SECRET_ACCESS_KEY'], safe='')
     )
+else:
+    logger.error('AWS access keys not in environment variables')
