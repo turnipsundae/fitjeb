@@ -31,7 +31,8 @@ if 'RDS_HOSTNAME' in os.environ:
         }
     }
 else:
-    logger.error('RDS not in environment variables')
+    with open('logfile', 'w') as f:
+        f.write('RDS not in environment variables')
 
 STATIC_ROOT = 'static'
 
@@ -47,5 +48,7 @@ if 'AWS_ACCESS_KEY_ID' in os.environ and 'AWS_SECRET_ACCESS_KEY' in os.environ:
         urllib.parse.quote(os.environ['AWS_ACCESS_KEY_ID'], safe=''),
         urllib.parse.quote(os.environ['AWS_SECRET_ACCESS_KEY'], safe='')
     )
+    BROKER_TRANSPORT_OPTIONS = {'region': 'us-west-2'}
 else:
-    logger.error('AWS access keys not in environment variables')
+    with open('logfile', 'w') as f:
+        f.write('AWS access keys not in environment variables')
