@@ -39,6 +39,6 @@ import urllib
 
 if 'AWS_ACCESS_KEY_ID' in os.environ and 'AWS_SECRET_ACCESS_KEY' in os.environ:
     BROKER_URL = 'sqs://{0}:{1}@'.format(
-        os.environ['AWS_ACCESS_KEY_ID'],
-        os.environ['AWS_SECRET_ACCESS_KEY']
+        urllib.parse.quote(os.environ['AWS_ACCESS_KEY_ID'], safe=''),
+        urllib.parse.quote(os.environ['AWS_SECRET_ACCESS_KEY'], safe='')
     )
