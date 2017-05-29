@@ -28,3 +28,4 @@ def task_save_specific_wod():
     """
     # save_old_wod(CRAWLER_START_DATE)
     logger.info("Saved WOD from Crossfit.com")
+    return "hello world"
