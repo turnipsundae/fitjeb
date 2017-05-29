@@ -2,7 +2,7 @@ from celery.task.schedules import crontab
 from celery.decorators import task, periodic_task
 from celery.utils.log import get_task_logger
 
-from crawl.utils import save_latest_wod, save_old_wod
+# from crawl.utils import save_latest_wod, save_old_wod
 
 from crawl.settings import CRAWLER_FREQ_MINUTE, CRAWLER_FREQ_HOUR, CRAWLER_START_DATE
 
