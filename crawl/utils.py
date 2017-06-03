@@ -6,6 +6,8 @@ from crawl.regexutils import STD_UOM_TIME, STD_UOM_REPS
 
 from datetime import datetime, timedelta
 
+import os
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -96,7 +98,7 @@ def get_page(date=datetime.now()):
     """Returns a browser with crossfit.com page open"""
 
     # initialize a web browser
-    browser = webdriver.Firefox()
+    browser = webdriver.PhantomJS(service_log_path=os.path.devnull)
     # ensure we wait for DOM to populate
     browser.implicitly_wait(10)
     # The url for workouts of the days are formatted as
