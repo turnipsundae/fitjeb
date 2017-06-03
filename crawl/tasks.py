@@ -17,7 +17,7 @@ def task_save_latest_wod():
     logger.info("Saved WOD from Crossfit.com")
 
 @periodic_task(
-    run_every=(crontab(minute=CRAWLER_FREQ_MINUTE)),
+    run_every=(crontab(minute=CRAWLER_FREQ_MINUTE, hour=CRAWLER_FREQ_HOUR)),
     name="task_save_specific_wod",
     ignore_result=True
 )
