@@ -1,9 +1,21 @@
-<div>Workouts</div>
+{% extends "./base.html" %}
+{% load static %}
 
-<ul>
-{% for workout in workout_list %}
-    <li><a href="/wods/{{ workout.id }}/">{{ workout.title }}</a></li>
-{% empty %}
-    <p>No workouts are available.</p>
-{% endfor %}
-</ul>
+{% block title %}Workout Benchmark Index{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>WOD Benchmarks</h1>
+        <p class="lead">See the range of results from people who have completed the main site Workout of the Day (WOD)</p>
+    </div>
+
+    <ul>
+    {% for workout in workout_list %}
+        <li><a href="/wods/{{ workout.id }}/">{{ workout.title }}</a></li>
+    {% empty %}
+        <p>No workouts are available.</p>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock content %}
