@@ -31,6 +31,11 @@ body {
     /*color: #E9E581;*/
 }
 
+.tablecard {
+    border-radius: 6px;
+    background-color: #F6F6F6;
+}
+
 /*
 Black  #2B2B2B
 Red    #DE1B1B
