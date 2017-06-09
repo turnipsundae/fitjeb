@@ -11,7 +11,7 @@
 
     <div class="row marketing">
         <div class="col-md-8">
-            <div class="wod-result-stats">
+            <div class="wod-benchmark">
                 <table class="table table-hover theme-one">
                     <caption>Benchmark based on {{ workout.uom }}</caption> 
                     <thead> 
@@ -35,9 +35,11 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-4 theme-one">
-            <p class="">{{ workout.description|linebreaks }}</p>
-            <a href="{{ workout.link }}">{{ workout.link }}</a>
+        <div class="col-md-4">
+            <div class="wod-description theme-one">
+                <p class="">{{ workout.description|linebreaks }}</p>
+                <a href="{{ workout.link }}">Original post</a>
+            </div>
         </div>
     </div>
 </div>

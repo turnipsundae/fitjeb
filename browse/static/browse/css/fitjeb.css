@@ -39,6 +39,14 @@ caption {
     caption-side: bottom;
 }
 
+/* Workout Descriptions */
+.wod-description {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 /*
 Black  #2B2B2B
 Red    #DE1B1B
