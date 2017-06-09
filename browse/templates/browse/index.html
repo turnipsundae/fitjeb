@@ -7,15 +7,21 @@
 <div class="container">
     <div class="jumbotron">
         <h1>WOD Benchmarks</h1>
-        <p class="lead">See the range of results from people who have completed the main site Workout of the Day (WOD)</p>
+        <p class="lead">Results from people who completed the main site WOD</p>
     </div>
 
-    <ul>
-    {% for workout in workout_list %}
-        <li><a href="/wods/{{ workout.id }}/">{{ workout.title }}</a></li>
-    {% empty %}
-        <p>No workouts are available.</p>
-    {% endfor %}
-    </ul>
+    <div class="row marketing">
+        {% for workout in workout_list %}
+        <div class="col-md-6 sleeve">
+            <div class="card">
+            <h4><a href="/wods/{{ workout.id }}/">{{ workout.title }}</a></h4>
+            <p>{{ workout.description|truncatewords:20 }}</p>    
+            </div>
+        </div>
+        {% empty %}
+            <h4>The workouts are populating</h4>
+            <p>Come back later</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

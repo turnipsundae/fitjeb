@@ -1,0 +1,39 @@
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #2B2B2B;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.sleeve {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Cards */
+.card {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 6px;
+    background-color: #F6F6F6;
+}
+.card > h4 > a {
+    /*color: #E9E581;*/
+}
+
+/*
+Black  #2B2B2B
+Red    #DE1B1B
+Cream  #F6F6F6
+Yellow #E9E581
+*/
