@@ -13,7 +13,7 @@
     <div class="row marketing">
         {% for workout in workout_list %}
         <div class="col-md-6 sleeve">
-            <div class="card">
+            <div class="card theme-one">
             <h4><a href="/wods/{{ workout.id }}/">{{ workout.title }}</a></h4>
             <p>{{ workout.description|truncatewords:20 }}</p>    
             </div>

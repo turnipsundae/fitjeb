@@ -13,6 +13,14 @@ body {
   padding-left: 15px;
 }
 
+/* Cream color and round out borders */
+.theme-one {
+    border-radius: 6px;
+    background-color: #F6F6F6;
+}
+
+
+/* Create a sleeve to pad each card */
 .sleeve {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -24,16 +32,11 @@ body {
     padding-bottom: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    border-radius: 6px;
-    background-color: #F6F6F6;
-}
-.card > h4 > a {
-    /*color: #E9E581;*/
 }
 
-.tablecard {
-    border-radius: 6px;
-    background-color: #F6F6F6;
+/* Tables and captions */
+caption {
+    caption-side: bottom;
 }
 
 /*
