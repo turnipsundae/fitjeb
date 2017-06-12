@@ -17,7 +17,7 @@ def task_save_latest_wod():
     logger.info("Saved WOD from Crossfit.com")
 
 @periodic_task(
-    run_every=(crontab(hour=CRAWLER_FREQ_HOUR)),
+    run_every=(crontab(minute=CRAWLER_FREQ_MINUTE)),
     name="task_save_specific_wod",
     ignore_result=True
 )
@@ -26,5 +26,5 @@ def task_save_specific_wod():
     Saves WOD from Crossfit.com beginning from stt art date,
     and skipping past any previously crawled dates.
     """
-    save_old_wod(CRAWLER_START_DATE)
+    # save_old_wod(CRAWLER_START_DATE)
     logger.info("Saved WOD from Crossfit.com")
