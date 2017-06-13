@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Custom apps
     # 'browse.apps.BrowseConfig',
     # 'crawl.apps.CrawlConfig',
+    'fitjeb',
 ]
 
 MIDDLEWARE = [
