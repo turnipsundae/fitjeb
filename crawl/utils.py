@@ -105,69 +105,11 @@ def get_page(date=datetime.now()):
     # https://www.crossfit.com/workouts/2016/01/15
     # where the last three parameters are year, month, day.
     url = crawler_settings.CROSSFIT_WOD_URL + "/{:02d}/{:02d}/{:02d}".format(date.year, date.month, date.day)
-    # url = crawler_settings.CROSSFIT_WOD_URL + "/2017/05/08" 
-    # url = crawler_settings.CROSSFIT_WOD_URL + "/2017/03/29" 
 
     # open the page
     browser.get(url)
     
     return browser
-
-def save_latest_wod():
-    """
-    Get the latest workout of the day and save it as a Workout 
-    Model in the Database.
-    """
-    page = get_page()
-    title, description, uom = get_workout_info(page)
-    url = page.current_url
-    comments = get_comments(page)
-    benchmarks = get_benchmarks(comments, uom)
-    page.quit()
-
-    # if WOD already exists, overwrite benchmarks vs creating new
-    w = Workout.objects.filter(link=url)
-    if w.exists() and benchmarks:
-        w = w.get()
-        for i in benchmarks:
-            b = w.benchmark_set.filter(gender=benchmarks[i]["gender"]).get()
-            b.min_score = benchmarks[i]["min_score"]
-            b.avg_score = benchmarks[i]["avg_score"]
-            b.max_score = benchmarks[i]["max_score"]
-            b.total_rxd = benchmarks[i]["total_rxd"]
-            b.total_attempts = benchmarks[i]["total_attempts"]
-    else:
-        workout = Workout(
-            title=title,
-            description=description,
-            uom=uom,
-            link=url
-        )
-        workout.save()
-        
-        if benchmarks:
-            for i in benchmarks:
-                benchmark = Benchmark(
-                    workout=workout,
-                    gender=benchmarks[i]["gender"],
-                    min_age=0,
-                    avg_age=0,
-                    max_age=0,
-                    min_score=benchmarks[i]["min_score"] or benchmarks[i]["max_score"],
-                    avg_score=benchmarks[i]["avg_score"],
-                    max_score=benchmarks[i]["max_score"],
-                    total_rxd=benchmarks[i]["total_rxd"],
-                    total_attempts=benchmarks[i]["total_attempts"],
-                    uom="",
-                )
-                benchmark.save()
-
-        crawled = Crawled(
-            link=url,
-            date=date.date(),
-            success="True"
-        )
-        crawled.save()
 
 def save_old_wod(date):
     """

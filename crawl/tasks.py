@@ -8,14 +8,6 @@ from crawl.settings import CRAWLER_FREQ_MINUTE, CRAWLER_FREQ_HOUR, CRAWLER_START
 
 logger = get_task_logger(__name__)
 
-@task(name="task_save_latest_wod")
-def task_save_latest_wod():
-    """
-    Saves latest wod from Crossfit.com
-    """
-    save_latest_wod()
-    logger.info("Saved WOD from Crossfit.com")
-
 @periodic_task(
     run_every=(crontab(minute=CRAWLER_FREQ_MINUTE)),
     name="task_save_specific_wod",
