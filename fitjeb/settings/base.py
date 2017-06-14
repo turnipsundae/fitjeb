@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Custom apps
     # 'browse.apps.BrowseConfig',
-    # 'crawl.apps.CrawlConfig',
+    'crawl.apps.CrawlConfig',
     'fitjeb',
 ]
 
