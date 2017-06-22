@@ -38,8 +38,10 @@ STATIC_ROOT = 'static'
 # Celery
 # Production on AWS EB requires SQS.
 
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+if  'AWS_ACCESS_KEY_ID'     in os.environ and \
+    'AWS_SECRET_ACCESS_KEY' in os.environ:
+    AWS_ACCESS_KEY_ID       =  os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY   =  os.environ['AWS_SECRET_ACCESS_KEY']
 
 BROKER_URL = 'sqs://{0}:{1}@'.format(
     urllib.parse.quote(AWS_ACCESS_KEY_ID, safe=''),
