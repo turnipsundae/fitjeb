@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Custom apps
-    # 'browse.apps.BrowseConfig',
+    'browse.apps.BrowseConfig',
     'crawl.apps.CrawlConfig',
 ]
 

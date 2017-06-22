@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-import crawl.views
+import browse.views
 
 urlpatterns = [
-    url(r'^$', crawl.views.hello, name='hello'),
+    url(r'^$', browse.views.IndexView.as_view(), name='index'),
     url(r'^admin/', admin.site.urls),
+    url(r'^wods/', include('browse.urls')),
 ]
