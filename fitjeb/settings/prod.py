@@ -6,6 +6,8 @@ from fitjeb.settings.base import *
 
 import logging
 
+import urllib
+
 logger = logging.getLogger(__name__)
 
 # Turn off debug during production
@@ -32,3 +34,14 @@ if 'RDS_HOSTNAME' in os.environ:
     }
 
 STATIC_ROOT = 'static'
+
+# Celery
+# Production on AWS EB requires SQS.
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+BROKER_URL = 'sqs://{0}:{1}@'.format(
+    urllib.parse.quote(AWS_ACCESS_KEY_ID, safe=''),
+    urllib.parse.quote(AWS_SECRET_ACCESS_KEY, safe='')
+)
