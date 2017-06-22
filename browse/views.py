@@ -32,10 +32,10 @@ class WorkoutDetailView(generic.DetailView):
         context['benchmark_list'] = self.get_pretty_results(context['workout'].uom, context['benchmark_list'])
         return context
 
-from crawl.tasks import add, mul, xsum
+from crawl.models import Crawled
 
 def CeleryView(request):
-    result = mul(3,4)
+    result = Crawled.objects.count()
     context = {
         "result" : result,
     }
