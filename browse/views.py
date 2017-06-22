@@ -31,3 +31,12 @@ class WorkoutDetailView(generic.DetailView):
         # Change format of results for better readability
         context['benchmark_list'] = self.get_pretty_results(context['workout'].uom, context['benchmark_list'])
         return context
+
+from crawl.tasks import add, mul, xsum
+
+def CeleryView(request):
+    result = mul(3,4)
+    context = {
+        "result" : result,
+    }
+    return render(request, 'browse/celery.html', context)
