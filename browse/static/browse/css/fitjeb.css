@@ -19,6 +19,10 @@ body {
     background-color: #F6F6F6;
 }
 
+/* Cream color text */
+.theme-two {
+    color: #F6F6F6;
+}
 
 /* Create a sleeve to pad each card */
 .sleeve {
