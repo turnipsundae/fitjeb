@@ -1,0 +1,55 @@
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #2B2B2B;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Cream color and round out borders */
+.theme-one {
+    border-radius: 6px;
+    background-color: #F6F6F6;
+}
+
+
+/* Create a sleeve to pad each card */
+.sleeve {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Cards */
+.card {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Tables and captions */
+caption {
+    caption-side: bottom;
+}
+
+/* Workout Descriptions */
+.wod-description {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/*
+Black  #2B2B2B
+Red    #DE1B1B
+Cream  #F6F6F6
+Yellow #E9E581
+*/
