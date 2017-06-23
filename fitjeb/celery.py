@@ -13,6 +13,14 @@ app = Celery('fitjeb')
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+# I'm not sure how to config from object, so using the below to 
+# configure for SQS instead.
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
+    app.conf.update(BROKER_URL='sqs://{0}:{1}@'.format(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY))
+
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
