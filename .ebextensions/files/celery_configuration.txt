@@ -29,7 +29,7 @@ killasgroup=true
 
 ; if rabbitmq is supervised, set its priority higher
 ; so it starts first
-priority=998
+priority=255
 
 environment=$celeryenv"
 
@@ -57,7 +57,7 @@ killasgroup=true
 
 ; if rabbitmq is supervised, set its priority higher
 ; so it starts first
-priority=998
+priority=254
 
 environment=$celeryenv"
 
