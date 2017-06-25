@@ -9,6 +9,7 @@ class Workout(models.Model):
     description = models.TextField()
     uom = models.CharField(max_length=255)
     link = models.URLField(max_length=255, help_text="URL to the WOD page")
+    date = models.DateField()
     created_on = models.DateTimeField("Created on", auto_now_add=True)
     updated_on = models.DateTimeField("Updated on", auto_now=True)
 
