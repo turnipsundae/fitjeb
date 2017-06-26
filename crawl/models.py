@@ -26,16 +26,17 @@ class Benchmark(models.Model):
     """
     __tablename__ = 'benchmark'
 
-    workout = models.ForeignKey(Workout)
+    workout = models.ForeignKey(Workout, null=True)
     gender = models.CharField(max_length=255)
     min_age = models.IntegerField(null=True)
     avg_age = models.IntegerField(null=True)
     max_age = models.IntegerField(null=True)
-    min_score = models.DecimalField(max_digits=10, decimal_places=2)
-    avg_score = models.DecimalField(max_digits=10, decimal_places=2)
-    max_score = models.DecimalField(max_digits=10, decimal_places=2)
-    total_rxd = models.IntegerField(default=0)
-    total_attempts = models.IntegerField(default=0)
+    min_score = models.DecimalField(null=True, max_digits=10, decimal_places=2)
+    avg_score = models.DecimalField(null=True, max_digits=10, decimal_places=2)
+    max_score = models.DecimalField(null=True, max_digits=10, decimal_places=2)
+    total_score = models.DecimalField(null=True, max_digits=10, decimal_places=2)
+    rx = models.CharField(max_length=255)
+    count = models.IntegerField(default=0)
     uom = models.CharField(max_length=255)
 
     def __str__(self):
@@ -43,21 +44,3 @@ class Benchmark(models.Model):
         
     def __repr__(self):
         return "<Benchmark('%s, %s %s')>" % (self.gender, self.avg_score, self.uom)
-
-class Crawled(models.Model):
-    """
-    Workouts that have been crawled, success or failure.
-    """
-    __tablename__ = 'crawled'
-
-    link = models.URLField(max_length=255, help_text="The URL to the WOD page")
-    date = models.DateField()
-    success = models.CharField(max_length=255)
-    crawled_on = models.DateTimeField("Crawled on", auto_now_add=True)
-    updated_on = models.DateTimeField("Updated on", auto_now=True)
-    
-    def __str__(self):
-        return "%s %s" % (self.date, self.success)
-        
-    def __repr__(self):
-        return "<Crawled('%s %s')>" % (self.date, self.success)

@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 import os
 from datetime import datetime, timedelta
+from decimal import *
 
 def get_page(base_url, date=datetime.now()):
     """Returns a browser with crossfit.com page open"""
@@ -60,50 +61,55 @@ def get_benchmarks(comments, uom):
     Scrape each comment for gender, age, height, weight, results
     Then produce benchmarks.
     """
-    # Create benchmark template
-    male = {"gender": "M", "total_rxd":0, 
-        "min_age":0, "avg_age":0, "max_age":0,
-        "min_score":None, "avg_score":0, "max_score":0, 
-        "total_score":0, "total_attempts":0,
-    }
-    female = {"gender": "F", "total_rxd":0, 
-        "min_age":0, "avg_age":0, "max_age":0,
-        "min_score":None, "avg_score":0, "max_score":0, 
-        "total_score":0, "total_attempts":0,
-    }
-    benchmarks = {"M": male, "F": female}
     # Use UOM to determine what kind of words to look
     # for in the comment results. If no UOM e.g. rest day,
     # exit the crawl.
     SCORE_RE, std_uom = get_score_re(uom)
     if not SCORE_RE: return None
+    # Set up 6 benchmarks: Male, Female, Either, and
+    # then Rx and non-Rx versions of both.
+    benchmarks = {g : {r : None for r in ["RX", "Maybe"]} for g in ["M", "F", "E"]}
+    for gender in benchmarks:
+        for rx in benchmarks[gender]:
+            benchmarks[gender][rx] = Benchmark(workout=None, gender=gender,
+                min_age=0, avg_age=0, max_age=0,
+                min_score=None, avg_score=None, max_score=0, total_score=0,
+                rx=rx, count=0, uom=uom,)
     # Extract gender, Rx yes/no, score from each comment
     for c in comments:
+        # Unwrap comment text
         text = c.text
         # find gender by looking at first character from regex
         gender = GENDER_RE.search(text)
-        if gender:
-            gender = gender.group(1).upper()[0]
+        gender = gender.group(1).upper()[0] if gender else "E"
         # find Rx
         rx = RX_RE.search(text)
-        # find scores Rx only
+        rx = "RX" if rx else "Maybe"
+        # Catalogue the scores
         score = SCORE_RE.search(text)
-        if score and gender and rx:
+        if score:
             if std_uom == STD_UOM_TIME:
                 score = score.group(1).split(":")
                 score = int(score[0]) + int(score[1]) / 60
             elif std_uom == STD_UOM_REPS:
                 score = int(score.group(1))
-            benchmarks[gender]['total_score'] += score
-            benchmarks[gender]['total_rxd'] += 1
-            if score > benchmarks[gender]['max_score']:
-                benchmarks[gender]['max_score'] = score
-            if not benchmarks[gender]['min_score'] or score < benchmarks[gender]['min_score']:
-                benchmarks[gender]['min_score'] = score
-    # Calculate averages for each gender
+            benchmarks[gender][rx].total_score += score
+            benchmarks[gender][rx].count += 1
+            if score > benchmarks[gender][rx].max_score:
+                benchmarks[gender][rx].max_score = score
+            if not benchmarks[gender][rx].min_score:
+                benchmarks[gender][rx].min_score = benchmarks[gender][rx].max_score
+            elif score < benchmarks[gender][rx].min_score:
+                benchmarks[gender][rx].min_score = score
+    # Calculate averages for each gender and rx
     for gender in benchmarks:
-        if benchmarks[gender]["total_rxd"] > 0:
-            benchmarks[gender]["avg_score"] = benchmarks[gender]["total_score"] / benchmarks[gender]["total_rxd"]
+        for rx in benchmarks[gender]:
+            if benchmarks[gender][rx].count > 0:
+                benchmarks[gender][rx].avg_score = benchmarks[gender][rx].total_score / benchmarks[gender][rx].count
+            else:
+                benchmarks[gender][rx].avg_score = 0
+                benchmarks[gender][rx].min_score = 0
+    print (benchmarks)
     return benchmarks
 
 def save_wod(base_url, date):
@@ -123,38 +129,14 @@ def save_wod(base_url, date):
     page.quit()
     # if WOD already exists, overwrite benchmarks vs creating new
     w = Workout.objects.filter(link=url)
-    if w.exists() and benchmarks:
+    if w.exists():
         w = w.get()
-        for i in benchmarks:
-            b = w.benchmark_set.filter(gender=benchmarks[i]["gender"]).get()
-            b.min_score = benchmarks[i]["min_score"]
-            b.avg_score = benchmarks[i]["avg_score"]
-            b.max_score = benchmarks[i]["max_score"]
-            b.total_rxd = benchmarks[i]["total_rxd"]
-            b.total_attempts = benchmarks[i]["total_attempts"]
     else:
-        workout = Workout(
-            title=title,
-            description=description,
-            uom=uom,
-            link=url,
-            date=date
-        )
-        workout.save()
-        
-        if benchmarks:
-            for i in benchmarks:
-                benchmark = Benchmark(
-                    workout=workout,
-                    gender=benchmarks[i]["gender"],
-                    min_age=0,
-                    avg_age=0,
-                    max_age=0,
-                    min_score=benchmarks[i]["min_score"] or benchmarks[i]["max_score"],
-                    avg_score=benchmarks[i]["avg_score"],
-                    max_score=benchmarks[i]["max_score"],
-                    total_rxd=benchmarks[i]["total_rxd"],
-                    total_attempts=benchmarks[i]["total_attempts"],
-                    uom="",
-                )
-                benchmark.save()
+        w = Workout(title=title, description=description,
+            uom=uom, link=url, date=date)
+        w.save()
+    if benchmarks:
+        for gender in benchmarks:
+            for rx in benchmarks[gender]:
+                benchmarks[gender][rx].workout = w
+                benchmarks[gender][rx].save()
