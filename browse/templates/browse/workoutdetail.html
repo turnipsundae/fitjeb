@@ -17,20 +17,20 @@
                     <thead> 
                         <tr> 
                             <th>Gender</th> 
+                            <th>Rx'd</th>
                             <th>Min</th> 
                             <th>Avg</th> 
                             <th>Max</th>
-                            <th>Rx'd</th>
                         </tr> 
                     </thead> 
                     <tbody>
                         {% for gender in benchmark_list %}
                         <tr>
                             <th scope="row">{{ gender.gender }}</th> 
+                            <td>{{ gender.rx }}</td>
                             <td>{{ gender.min_score }}</td> 
                             <td>{{ gender.avg_score }}</td> 
                             <td>{{ gender.max_score }}</td>
-                            <td>{{ gender.rx }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
