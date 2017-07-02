@@ -43,3 +43,9 @@ class WorkoutDetailView(generic.DetailView):
         # Change format of results for better readability
         context['benchmark_list'] = self.get_pretty_results(context['workout'].uom, context['benchmark_list'])
         return context
+
+class AboutView(generic.TemplateView):
+    template_name = 'browse/about.html'
+
+class ContactView(generic.TemplateView):
+    template_name = 'browse/contact.html'

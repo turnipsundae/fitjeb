@@ -8,7 +8,7 @@
     <div class="jumbotron">
         <h1>WOD Benchmarks</h1>
         <p class="lead">Results from people who completed the main site WOD</p>
-    </div>
+    </div> <!-- jumbotron -->
 
     <div class="row marketing">
         {% for workout in workout_list %}
@@ -25,9 +25,9 @@
             </div>
         </div>
         {% endfor %}
-    </div>
+    </div> <!-- index list -->
 
-    <div>
+    <div class="text-center">
     {% if is_paginated %}
         <ul class="pagination">
             {% if workout.has_previous %}
@@ -49,6 +49,6 @@
             {% endif %}
         </ul>
     {% endif %}
-    </div>
+    </div> <!-- paginator -->
 </div>
 {% endblock content %}
