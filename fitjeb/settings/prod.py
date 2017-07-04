@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 DEBUG = False
 
 # Be more selective about hosts
-ALLOWED_HOSTS = ['.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['.elasticbeanstalk.com', '.fit-j.com']
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
