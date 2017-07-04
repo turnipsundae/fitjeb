@@ -109,7 +109,6 @@ def get_benchmarks(comments, uom):
             else:
                 benchmarks[gender][rx].avg_score = 0
                 benchmarks[gender][rx].min_score = 0
-    print (benchmarks)
     return benchmarks
 
 def save_wod(base_url, date):
@@ -136,6 +135,8 @@ def save_wod(base_url, date):
             uom=uom, link=url, date=date)
         w.save()
     if benchmarks:
+        if w.benchmark_set.exists():
+            w.benchmark_set.all().delete()
         for gender in benchmarks:
             for rx in benchmarks[gender]:
                 benchmarks[gender][rx].workout = w
