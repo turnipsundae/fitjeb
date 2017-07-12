@@ -22,9 +22,9 @@ class WorkoutDetailView(generic.DetailView):
         # Timed results are stored as decimals. Convert to minutes:seconds.
         if 'time' in uom and benchmark_list:
             for gender in benchmark_list:
-                gender.min_score = "{}:{:02.0f}".format(int(gender.min_score), gender.min_score % 1 * 100) 
-                gender.avg_score = "{}:{:02.0f}".format(int(gender.avg_score), gender.avg_score % 1 * 100)
-                gender.max_score = "{}:{:02.0f}".format(int(gender.max_score), gender.max_score % 1 * 100)
+                gender.min_score = "{}:{:02.0f}".format(int(gender.min_score), gender.min_score % 1 * 60) 
+                gender.avg_score = "{}:{:02.0f}".format(int(gender.avg_score), gender.avg_score % 1 * 60)
+                gender.max_score = "{}:{:02.0f}".format(int(gender.max_score), gender.max_score % 1 * 60)
         else:
             for gender in benchmark_list:
                 gender.min_score = "{:.0f}".format(gender.min_score) 

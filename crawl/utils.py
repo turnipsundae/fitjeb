@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 import os
 from datetime import datetime, timedelta
 from decimal import *
+import signal
 
 def get_page(base_url, date=datetime.now()):
     """Returns a browser with crossfit.com page open"""
@@ -125,6 +126,7 @@ def save_wod(base_url, date):
     title, description, uom, url = get_workout_info(page)
     comments = get_comments(page)
     benchmarks = get_benchmarks(comments, uom)
+    page.service.process.send_signal(signal.SIGTERM)
     page.quit()
     # if WOD already exists, overwrite benchmarks vs creating new
     w = Workout.objects.filter(link=url)

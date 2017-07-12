@@ -12,7 +12,7 @@ from datetime import datetime
 logger = get_task_logger(__name__)
 
 @periodic_task(
-    run_every=(crontab(hour=CRAWLER_REQ_HOUR)),
+    run_every=(crontab(minute=CRAWLER_FREQ_MINUTE, hour=CRAWLER_FREQ_HOUR)),
     name="task_save_wod",
     ignore_result=True
 )
